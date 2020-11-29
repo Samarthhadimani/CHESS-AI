@@ -11,6 +11,8 @@ def evaluate_board(board):
 
 
 def piece_value(piece, square):
+    # print("I am here")
+    # print("piece",piece,square)
     symbol = piece.symbol()
     is_white = not symbol.islower()
 

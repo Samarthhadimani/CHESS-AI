@@ -13,7 +13,6 @@ BLACK = '#B58863'
 YELLOW = '#AEB188'
 GREEN = '#646D40'
 
-
 class GUI(tkinter.Frame):
     square_size = 64
     pieces = {}

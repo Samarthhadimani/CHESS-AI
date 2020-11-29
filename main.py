@@ -8,12 +8,13 @@ import gui
 
 
 class Game:
-    board = chess.Board()
-
-    player_turns = [choice([True, False])]
+    board = chess.Board() #initialize the board 
+    print(board)
+    player_turns = [choice([True, False])]  #randomly chooses the players turn 
+    # print(player_turns)
     is_player_white = player_turns[-1]
 
-    root = Tk()
+    root = Tk()     #initialises the GUI 
     root.title('CHESS BOARD')
 
     def __init__(self):
@@ -25,7 +26,7 @@ class Game:
         if self.player_turns[-1]:
             self.display.label_status["text"] = "You play as white."
 
-            self.root.after(1000, self.player_play)
+            self.root.after(1000, self.player_play) #its again start displaying after 1s by calling self.player_play
         else:
             self.display.label_status[
                 "text"] = "You play as black. The computer is thinking..."
@@ -41,7 +42,7 @@ class Game:
         self.root.after(100000000, self.computer_play)
 
     def computer_play(self):
-        ai.AI(self.board, self.is_player_white).ai_move()
+        ai.AI(self.board, self.is_player_white).ai_move()  #calls AI class
 
         self.display.refresh()
         self.display.draw_pieces()

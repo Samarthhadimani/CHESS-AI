@@ -1,21 +1,23 @@
-import pickle
+import pickle 
+#it's the process of converting a Python object into a byte stream to store it in a file/database,
+#maintain program state across sessions, or transport data over the network.
+
 from random import randint
 
 import chess
 from chess.polyglot import open_reader
-
 from board import evaluate_board
 
 
 class AI:
-    depth = 3
+    depth = 3  #maximum depth of the tree
 
     board_caches = {}
 
     cache_hit = 0
     cache_miss = 0
     try:
-        cache = open('./data/cache.p', 'rb')
+        cache = open('./data/cache.p', 'rb')#reading a file in a binary format
     except IOError:
         cache = open('./data/cache.p', 'wb')
         pickle.dump(board_caches, cache)
@@ -26,11 +28,11 @@ class AI:
         self.board = board
         self.is_ai_white = not is_player_white
 
-        with open_reader('./data/opening.bin') as reader:
+        with open_reader('./data/opening.bin') as reader: #here for given board states reader.find_all(board) gives the opening moves
             self.opening_moves = [
                 str(entry.move)for entry in reader.find_all(board)
             ]
-
+        print(self.opening_moves)
     def ai_move(self):
         global_score = -1e8 if self.is_ai_white else 1e8
         chosen_move = None
@@ -39,7 +41,9 @@ class AI:
         if self.opening_moves:
             chosen_move = chess.Move.from_uci(
                 self.opening_moves[randint(0, len(self.opening_moves) // 2)])
+            print(chosen_move)
         else:
+            print("I am here")
             for move in self.board.legal_moves:
                 self.board.push(move)
 
@@ -109,4 +113,5 @@ class AI:
         return self.board_caches[self.hash_board(depth, is_maxing_white)]
 
     def hash_board(self, depth, is_maxing_white):
+        # print(str(self.board) + ' ' + str(depth) + ' ' + str(is_maxing_white))
         return str(self.board) + ' ' + str(depth) + ' ' + str(is_maxing_white)
