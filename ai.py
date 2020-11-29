@@ -13,7 +13,6 @@ class AI:
     depth = 3  #maximum depth of the tree
 
     board_caches = {}
-
     cache_hit = 0
     cache_miss = 0
     try:

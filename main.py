@@ -1,12 +1,8 @@
-from tkinter import Tk
-from random import choice
-
-import chess
-
+from tkinter import Tk #GUI
+from random import choice   
+import chess    
 import ai
 import gui
-
-
 class Game:
     board = chess.Board() #initialize the board 
     print(board)
